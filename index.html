@@ -1,222 +1,134 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Lunyx</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: #000;
-            color: #fff;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Stars */
-        .stars {
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .star {
-            position: absolute;
-            background: #fff;
-            border-radius: 50%;
-            animation: twinkle var(--duration) ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
-        }
-
-        /* Moon */
-        .moon {
-            position: fixed;
-            top: 15%;
-            right: 15%;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #f5f5f5, #d0d0d0, #999);
-            box-shadow: 0 0 60px rgba(255, 255, 255, 0.3), 0 0 120px rgba(255, 255, 255, 0.15), 0 0 200px rgba(255, 255, 255, 0.1);
-            z-index: 2;
-            animation: moonGlow 4s ease-in-out infinite;
-        }
-
-        .moon::after {
-            content: '';
-            position: absolute;
-            top: 15%;
-            left: 15%;
-            width: 25%;
-            height: 25%;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.08);
-        }
-
-        @keyframes moonGlow {
-            0%, 100% { box-shadow: 0 0 60px rgba(255, 255, 255, 0.3), 0 0 120px rgba(255, 255, 255, 0.15), 0 0 200px rgba(255, 255, 255, 0.1); }
-            50% { box-shadow: 0 0 80px rgba(255, 255, 255, 0.4), 0 0 160px rgba(255, 255, 255, 0.2), 0 0 250px rgba(255, 255, 255, 0.15); }
-        }
-
-        /* Title */
-        .title-container {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        .title {
-            font-size: 6rem;
-            font-weight: 700;
-            letter-spacing: 0.3em;
-            background: linear-gradient(135deg, #ffffff 0%, #cccccc 30%, #999999 50%, #e0e0e0 70%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: none;
-            animation: textGlow 3s ease-in-out infinite;
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            font-weight: 300;
-            letter-spacing: 0.5em;
-            color: #888;
-            margin-top: 1rem;
-            text-transform: uppercase;
-        }
-
-        @keyframes textGlow {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2)); }
-            50% { filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.4)); }
-        }
-
-        /* Links */
-        .links {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 2rem;
-            z-index: 4;
-        }
-
-        .link {
-            color: #888;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 0.2em;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-
-        .link:hover {
-            color: #fff;
-            transform: translateY(-3px);
-        }
-
-        /* Intro */
-        .intro {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            transition: opacity 1s ease, visibility 1s ease;
-        }
-
-        .intro.done {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .intro-logo {
-            font-size: 4rem;
-            font-weight: 700;
-            letter-spacing: 0.3em;
-            background: linear-gradient(135deg, #ffffff, #cccccc, #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: introPulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes introPulse {
-            0%, 100% { opacity: 0.5; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.1); }
-        }
-
-        @media (max-width: 600px) {
-            .title { font-size: 3rem; }
-            .moon { width: 80px; height: 80px; top: 10%; right: 10%; }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunyx - Lua Obfuscator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="intro" id="intro">
-        <div class="intro-logo">LUNYX</div>
-    </div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">LUNYX</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#docs">Docs</a>
+                <a href="#stats">Stats</a>
+                <a href="https://discord.gg/vKtwdAsDTP" target="_blank">Discord</a>
+                <a href="https://github.com/lunyxv" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </nav>
 
-    <div class="stars" id="stars"></div>
-    <div class="moon"></div>
+    <section id="home" class="hero">
+        <div class="stars"></div>
+        <div class="moon"></div>
+        <div class="hero-content">
+            <h1>Lunyx</h1>
+            <p>Advanced Lua Obfuscator</p>
+            <div class="hero-buttons">
+                <a href="#docs" class="btn-primary">Documentation</a>
+                <a href="https://discord.gg/vKtwdAsDTP" class="btn-secondary">Discord</a>
+            </div>
+            <div class="code-block">
+                <code>loadstring(game:HttpGet("https://lunyx-api.vercel.app/api/loader?id=ID"))()</code>
+            </div>
+        </div>
+    </section>
 
-    <div class="title-container">
-        <div class="title">Lunyx</div>
-        <div class="subtitle">Obfuscator</div>
-    </div>
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>String Encryption</h3>
+                    <p>Strings encrypted and decrypted at runtime</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Name Mangling</h3>
+                    <p>Variables renamed to random identifiers</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Junk Code</h3>
+                    <p>Fake code inserted to confuse analysis</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Loader System</h3>
+                    <p>Remote script loading with local caching</p>
+                </div>
+                <div class="feature-card">
+                    <h3>REST API</h3>
+                    <p>Full API for script management</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Fast Processing</h3>
+                    <p>Obfuscation in milliseconds</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="links">
-        <a href="https://discord.gg/vKtwdAsDTP" class="link">Discord</a>
-        <a href="https://github.com/lunyxv" class="link">GitHub</a>
-        <a href="/api/stats" class="link">API</a>
-    </div>
+    <section id="docs" class="docs">
+        <div class="container">
+            <h2>Documentation</h2>
+            <div class="docs-grid">
+                <div class="doc-card">
+                    <h3>Obfuscate Script</h3>
+                    <pre><code>/obfuscate file:script.lua</code></pre>
+                    <p>Upload a Lua file and receive an obfuscated version.</p>
+                </div>
+                <div class="doc-card">
+                    <h3>Create Loader</h3>
+                    <pre><code>/createloader script:script.lua</code></pre>
+                    <p>Store script on server and generate a loader.</p>
+                </div>
+                <div class="doc-card">
+                    <h3>Delete Loader</h3>
+                    <pre><code>/deleteloader id:loader_id</code></pre>
+                    <p>Remove a loader and prevent further access.</p>
+                </div>
+                <div class="doc-card">
+                    <h3>List Scripts</h3>
+                    <pre><code>/listloaders</code></pre>
+                    <p>View all stored scripts and load counts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <script>
-        // Generate stars
-        const starsContainer = document.getElementById('stars');
-        
-        for (let i = 0; i < 200; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            
-            const size = Math.random() * 2.5 + 1;
-            star.style.width = size + 'px';
-            star.style.height = size + 'px';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
-            
-            starsContainer.appendChild(star);
-        }
+    <section id="stats" class="stats">
+        <div class="container">
+            <h2>Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalScripts">-</div>
+                    <div class="stat-label">Scripts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLoaders">-</div>
+                    <div class="stat-label">Loaders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLoads">-</div>
+                    <div class="stat-label">Total Loads</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Intro
-        const intro = document.getElementById('intro');
-        
-        setTimeout(() => {
-            intro.classList.add('done');
-        }, 2000);
-    </script>
+    <footer class="footer">
+        <div class="container">
+            <p>Lunyx Obfuscator v0.0.0</p>
+            <div class="footer-links">
+                <a href="https://discord.gg/vKtwdAsDTP">Discord</a>
+                <a href="https://github.com/lunyxv">GitHub</a>
+                <a href="/api/stats">API</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
