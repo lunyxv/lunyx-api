@@ -38,7 +38,6 @@ function createShootingStar() {
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Draw stars
     stars.forEach(star => {
         star.opacity += star.twinkleSpeed;
         if (star.opacity > 1 || star.opacity < 0.2) star.twinkleSpeed = -star.twinkleSpeed;
@@ -52,7 +51,6 @@ function animate() {
         ctx.fill();
     });
     
-    // Draw shooting stars
     shootingStars = shootingStars.filter(s => s.life > 0);
     shootingStars.forEach(s => {
         s.x += s.vx;
@@ -70,33 +68,6 @@ function animate() {
     createShootingStar();
     requestAnimationFrame(animate);
 }
-
-// Custom cursor
-const cursorDot = document.createElement('div');
-const cursorRing = document.createElement('div');
-cursorDot.className = 'cursor-dot';
-cursorRing.className = 'cursor-ring';
-document.body.appendChild(cursorDot);
-document.body.appendChild(cursorRing);
-
-document.addEventListener('mousemove', (e) => {
-    cursorDot.style.left = e.clientX + 'px';
-    cursorDot.style.top = e.clientY + 'px';
-    cursorRing.style.left = e.clientX + 'px';
-    cursorRing.style.top = e.clientY + 'px';
-});
-
-document.addEventListener('mouseover', (e) => {
-    if (e.target.closest('a, button, .feature-card, .doc-card, .stat-card')) {
-        cursorRing.classList.add('hover');
-    }
-});
-
-document.addEventListener('mouseout', (e) => {
-    if (e.target.closest('a, button, .feature-card, .doc-card, .stat-card')) {
-        cursorRing.classList.remove('hover');
-    }
-});
 
 // Scroll animations
 const observer = new IntersectionObserver((entries) => {
