@@ -6,13 +6,13 @@ module.exports = async (req, res) => {
         return res.status(405).json({ error: 'Method not allowed' });
     }
     
-    const { script, name } = req.body;
+    const { id, script, name } = req.body;
     
     if (!script) {
         return res.status(400).json({ error: 'Missing script' });
     }
     
-    const scriptId = crypto.randomBytes(16).toString('hex');
+    const scriptId = id || crypto.randomBytes(16).toString('hex');
     
     await kv.set(`script:${scriptId}`, {
         script,
