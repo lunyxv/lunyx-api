@@ -1,154 +1,146 @@
-const content = {
-    home: {
-        title: 'Lunyx',
-        subtitle: 'Lua Obfuscator',
-        features: [
-            { icon: 'fa-lock', title: 'String Encryption', desc: 'Runtime decryption' },
-            { icon: 'fa-shuffle', title: 'Name Mangling', desc: 'Random identifiers' },
-            { icon: 'fa-server', title: 'Loader System', desc: 'Remote loading' },
-            { icon: 'fa-bolt', title: 'Fast', desc: 'Milliseconds' }
-        ]
-    },
-    docs: {
-        title: 'Documentation',
-        commands: [
-            { cmd: '/obfuscate file:script.lua', desc: 'Obfuscate a Lua file' },
-            { cmd: '/createloader script:script.lua', desc: 'Create a loader' },
-            { cmd: '/deleteloader id:loader_id', desc: 'Delete a loader' },
-            { cmd: '/listloaders', desc: 'List all scripts' }
-        ]
-    },
-    purchase: {
-        title: 'Purchase',
-        plans: [
-            { name: 'Basic', price: '$5', features: ['Obfuscation', 'Basic loader'] },
-            { name: 'Premium', price: '$10', features: ['Full obfuscation', 'Loader system', 'Script deletion'] },
-            { name: 'Lifetime', price: '$25', features: ['Everything', 'Priority support'] }
-        ]
-    },
-    tos: {
-        title: 'Terms of Service',
-        sections: [
-            { heading: '1. Acceptance', text: 'By using Lunyx, you agree to these terms.' },
-            { heading: '2. Usage', text: 'Lunyx is provided as-is.' },
-            { heading: '3. Restrictions', text: 'Do not use for malicious purposes.' },
-            { heading: '4. Termination', text: 'We reserve the right to revoke access.' }
-        ]
-    }
-};
+// src/js/app.js – main render logic, navigation, dynamic content
+import { CONTENT, SOCIAL } from './content.js';
+import { initEffects, showToast } from './effects.js';
 
+// ----- state -----
+let currentPage = 'home';
+
+// ----- DOM refs -----
 const app = document.getElementById('app');
 
-function renderPage(page) {
-    if (page === 'home') renderHome();
-    else if (page === 'docs') renderDocs();
-    else if (page === 'purchase') renderPurchase();
-    else if (page === 'tos') renderTos();
+// ----- navigation data -----
+const PAGES = ['home', 'docs', 'purchase', 'tos'];
+
+// ----- render engine -----
+function render() {
+  // build page content based on currentPage
+  let html = '';
+  html += buildNav();
+  html += buildPage(currentPage);
+  app.innerHTML = html;
+
+  // attach nav listeners
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const page = link.dataset.page;
+      if (page && PAGES.includes(page)) {
+        currentPage = page;
+        render();
+        // show a toast on navigation
+        showToast(`📄 ${page.charAt(0).toUpperCase() + page.slice(1)}`);
+      }
+    });
+  });
+
+  // social links (already in nav)
+  // additional GitHub/Discord if needed
 }
 
-function renderHome() {
-    const c = content.home;
-    app.innerHTML = `
-        <nav class="navbar">
-            <span class="brand"><i class="fa-solid fa-shield-halved"></i> Lunyx</span>
-            <div class="links">
-                <a href="#home" onclick="navigate('home')">Home</a>
-                <a href="#docs" onclick="navigate('docs')">Docs</a>
-                <a href="#purchase" onclick="navigate('purchase')">Purchase</a>
-                <a href="#tos" onclick="navigate('tos')">TOS</a>
-            </div>
-        </nav>
-        <section class="hero">
-            <h1>${c.title}</h1>
-            <p>${c.subtitle}</p>
-            <div class="features">
-                ${c.features.map(f => `
-                    <div class="feature">
-                        <i class="fa-solid ${f.icon}"></i>
-                        <h3>${f.title}</h3>
-                        <p>${f.desc}</p>
-                    </div>
-                `).join('')}
-            </div>
-        </section>
-    `;
+function buildNav() {
+  const isActive = (p) => p === currentPage ? 'active' : '';
+  return `
+    <nav>
+      <span class="logo">Lunyx</span>
+      <div class="nav-links">
+        ${PAGES.map(p => `<a class="nav-link ${isActive(p)}" data-page="${p}">${p.charAt(0).toUpperCase() + p.slice(1)}</a>`).join('')}
+      </div>
+      <div class="social-icons">
+        <a href="${SOCIAL.discord}" target="_blank" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+        <a href="${SOCIAL.github}" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      </div>
+    </nav>
+  `;
 }
 
-function renderDocs() {
-    const c = content.docs;
-    app.innerHTML = `
-        <nav class="navbar">
-            <span class="brand"><i class="fa-solid fa-shield-halved"></i> Lunyx</span>
-            <div class="links">
-                <a href="#home" onclick="navigate('home')">Home</a>
-                <a href="#docs" onclick="navigate('docs')">Docs</a>
-                <a href="#purchase" onclick="navigate('purchase')">Purchase</a>
-                <a href="#tos" onclick="navigate('tos')">TOS</a>
-            </div>
-        </nav>
-        <section class="page">
-            <h1>${c.title}</h1>
-            ${c.commands.map(cmd => `
-                <div class="cmd">
-                    <code>${cmd.cmd}</code>
-                    <p>${cmd.desc}</p>
-                </div>
-            `).join('')}
-        </section>
-    `;
+function buildPage(page) {
+  switch(page) {
+    case 'home': return buildHome();
+    case 'docs': return buildDocs();
+    case 'purchase': return buildPurchase();
+    case 'tos': return buildTos();
+    default: return '<p>Page not found</p>';
+  }
 }
 
-function renderPurchase() {
-    const c = content.purchase;
-    app.innerHTML = `
-        <nav class="navbar">
-            <span class="brand"><i class="fa-solid fa-shield-halved"></i> Lunyx</span>
-            <div class="links">
-                <a href="#home" onclick="navigate('home')">Home</a>
-                <a href="#docs" onclick="navigate('docs')">Docs</a>
-                <a href="#purchase" onclick="navigate('purchase')">Purchase</a>
-                <a href="#tos" onclick="navigate('tos')">TOS</a>
-            </div>
-        </nav>
-        <section class="page">
-            <h1>${c.title}</h1>
-            <div class="plans">
-                ${c.plans.map(p => `
-                    <div class="plan">
-                        <h3>${p.name}</h3>
-                        <p class="price">${p.price}</p>
-                        ${p.features.map(f => `<p>${f}</p>`).join('')}
-                    </div>
-                `).join('')}
-            </div>
-        </section>
-    `;
+function buildHome() {
+  const c = CONTENT.home;
+  const features = c.features.map(f => `
+    <div class="feature-item">
+      <i class="${f.icon}"></i>
+      <h3>${f.title}</h3>
+      <p>${f.desc}</p>
+    </div>
+  `).join('');
+  return `
+    <section class="hero">
+      <h1>${c.title}</h1>
+      <p class="sub">${c.subtitle}</p>
+      <div class="feature-grid">${features}</div>
+    </section>
+  `;
 }
 
-function renderTos() {
-    const c = content.tos;
-    app.innerHTML = `
-        <nav class="navbar">
-            <span class="brand"><i class="fa-solid fa-shield-halved"></i> Lunyx</span>
-            <div class="links">
-                <a href="#home" onclick="navigate('home')">Home</a>
-                <a href="#docs" onclick="navigate('docs')">Docs</a>
-                <a href="#purchase" onclick="navigate('purchase')">Purchase</a>
-                <a href="#tos" onclick="navigate('tos')">TOS</a>
-            </div>
-        </nav>
-        <section class="page">
-            <h1>${c.title}</h1>
-            ${c.sections.map(s => `
-                <h3>${s.heading}</h3>
-                <p>${s.text}</p>
-            `).join('')}
-        </section>
-    `;
+function buildDocs() {
+  const c = CONTENT.docs;
+  const items = c.commands.map(cmd => `
+    <li><i class="fa-solid fa-terminal"></i> <code>${cmd.cmd}</code> — ${cmd.desc}</li>
+  `).join('');
+  return `
+    <section>
+      <h2 style="font-weight:500; font-size:2rem; margin-bottom:1.2rem; background: linear-gradient(180deg,#fff,#aaa); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">${c.title}</h2>
+      <div class="doc-card">
+        <ul>${items}</ul>
+        <p style="margin-top:1.4rem; color:#999;"><i class="fa-regular fa-circle-info"></i> ${c.note}</p>
+      </div>
+    </section>
+  `;
 }
 
-window.navigate = function(page) {
-    renderPage(page);
-};
+function buildPurchase() {
+  const c = CONTENT.purchase;
+  const plans = c.plans.map(p => `
+    <div class="plan-card">
+      <h3>${p.name}</h3>
+      <div class="price">${p.price} <small>${p.period}</small></div>
+      <ul style="list-style:none; margin:0.8rem 0; color:#b5b5b5;">
+        ${p.features.map(f => `<li style="padding:0.2rem 0;"><i class="fa-regular fa-circle-check" style="color:#7a7a7a;width:1.4rem;"></i> ${f}</li>`).join('')}
+      </ul>
+      <a href="#" class="btn-outline">Choose ${p.name}</a>
+    </div>
+  `).join('');
+  return `
+    <section>
+      <h2 style="font-weight:500; font-size:2rem; margin-bottom:0.5rem; background: linear-gradient(180deg,#fff,#aaa); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">${c.title}</h2>
+      <div class="plan-grid">${plans}</div>
+      <p style="color:#7a7a7a; margin-top:1.8rem; font-size:0.9rem;">All plans include lifetime access. Contact for enterprise.</p>
+    </section>
+  `;
+}
 
-renderPage('home');
+function buildTos() {
+  const c = CONTENT.tos;
+  const sections = c.sections.map(s => `
+    <div style="margin-bottom:1.2rem;">
+      <h4 style="color:#e0e0e0; font-weight:500; font-size:1.2rem;">${s.heading}</h4>
+      <p style="color:#b0b0b0; line-height:1.6;">${s.text}</p>
+    </div>
+  `).join('');
+  return `
+    <section>
+      <h2 style="font-weight:500; font-size:2rem; margin-bottom:1.2rem; background: linear-gradient(180deg,#fff,#aaa); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">${c.title}</h2>
+      <div class="tos-card">
+        ${sections}
+        <p style="color:#888; margin-top:1rem;"><i class="fa-regular fa-clock"></i> Last updated: April 2026</p>
+      </div>
+    </section>
+  `;
+}
+
+// ----- init -----
+document.addEventListener('DOMContentLoaded', () => {
+  initEffects();
+  render();
+  // initial toast
+  setTimeout(() => showToast('Lunyx · Lua Obfuscator'), 1600);
+});
