@@ -1,4 +1,4 @@
-/* src/css/style.css – dark, minimal, space-grotesk, spotlight + particles */
+/* src/css/style.css */
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +11,6 @@ body {
   font-family: 'Space Grotesk', sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
-  cursor: default;
 }
 
 #app {
@@ -23,7 +22,7 @@ body {
   min-height: 100vh;
 }
 
-/* ---------- splash overlay ---------- */
+/* splash */
 #splash {
   position: fixed;
   inset: 0;
@@ -34,11 +33,11 @@ body {
   align-items: center;
   justify-content: center;
   transition: opacity 0.8s ease, visibility 0.8s;
-  pointer-events: none;
 }
 #splash.hidden {
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
 }
 #splash i {
   font-size: 5rem;
@@ -61,7 +60,7 @@ body {
   100% { opacity: 1; transform: scale(1.04); }
 }
 
-/* ---------- navigation ---------- */
+/* nav */
 nav {
   display: flex;
   flex-wrap: wrap;
@@ -115,7 +114,7 @@ nav {
   color: #ffffff;
 }
 
-/* ---------- sections ---------- */
+/* sections */
 section {
   animation: fadeSlide 0.35s ease forwards;
 }
@@ -186,7 +185,7 @@ section {
   margin-bottom: 1rem;
   color: #eee;
 }
-.doc-card code, .plan-card code {
+.doc-card code {
   background: #1a1a1a;
   padding: 0.2rem 0.7rem;
   border-radius: 8px;
@@ -204,7 +203,7 @@ section {
   padding-left: 0.2rem;
 }
 .doc-card li, .tos-card li {
-  padding: 0.3rem 0;
+  padding: 0.5rem 0;
   color: #c5c5c5;
   border-bottom: 1px solid rgba(255,255,255,0.02);
 }
@@ -248,12 +247,25 @@ section {
   text-decoration: none;
   font-weight: 500;
   transition: 0.2s;
+  cursor: pointer;
 }
 .plan-card .btn-outline:hover {
   background: #ffffff0a;
   border-color: #aaa;
 }
 
+/* page titles */
+.page-title {
+  font-weight: 500;
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(180deg, #fff 20%, #aaa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* toast */
 .toast-container {
   position: fixed;
   bottom: 2rem;
@@ -281,7 +293,7 @@ section {
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* ---- spotlight + particles (canvas behind) ---- */
+/* particles canvas */
 #particles-canvas {
   position: fixed;
   inset: 0;
@@ -299,7 +311,6 @@ section {
   transition: background 0.1s;
 }
 
-/* responsive */
 @media (max-width: 700px) {
   .nav-links { gap: 1.2rem; font-size: 0.95rem; flex-wrap: wrap; }
   .social-icons { gap: 0.8rem; }
