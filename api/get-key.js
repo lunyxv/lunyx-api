@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+const { kv } = require('@vercel/kv');
 
 module.exports = async (req, res) => {
     if (req.method !== 'GET') {
@@ -12,13 +11,16 @@ module.exports = async (req, res) => {
         return res.status(400).json({ error: 'Missing ID' });
     }
     
-    const filePath = path.join(process.cwd(), 'data', `${id}.json`);
-    
-    if (!fs.existsSync(filePath)) {
-        return res.status(404).json({ error: 'Data not found' });
+    try {
+        const data = await kv.get(`obfuscation:${id}`);
+        
+        if (!data || !data.keys) {
+            return res.status(404).json({ error: 'Data not found' });
+        }
+        
+        res.status(200).json({ key: data.keys.xorKey });
+    } catch (error) {
+        console.error('Error fetching key:', error);
+        res.status(500).json({ error: 'Failed to fetch key' });
     }
-    
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    
-    res.status(200).json({ key: data.keys.xorKey });
 };
