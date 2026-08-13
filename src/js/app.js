@@ -1,25 +1,37 @@
-// src/js/app.js – main render logic, navigation, dynamic content
+// src/js/app.js
 import { CONTENT, SOCIAL } from './content.js';
-import { initEffects, showToast } from './effects.js';
+import { initEffects } from './effects.js';
 
-// ----- state -----
 let currentPage = 'home';
-
-// ----- DOM refs -----
 const app = document.getElementById('app');
-
-// ----- navigation data -----
 const PAGES = ['home', 'docs', 'purchase', 'tos'];
 
-// ----- render engine -----
+// Toast system
+let toastContainer = null;
+
+export function showToast(message, duration = 2800) {
+  if (!toastContainer) {
+    toastContainer = document.createElement('div');
+    toastContainer.className = 'toast-container';
+    document.body.appendChild(toastContainer);
+  }
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = message;
+  toastContainer.appendChild(t);
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateX(20px)';
+    setTimeout(() => t.remove(), 300);
+  }, duration);
+}
+
 function render() {
-  // build page content based on currentPage
   let html = '';
   html += buildNav();
   html += buildPage(currentPage);
   app.innerHTML = html;
 
-  // attach nav listeners
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
@@ -27,14 +39,10 @@ function render() {
       if (page && PAGES.includes(page)) {
         currentPage = page;
         render();
-        // show a toast on navigation
         showToast(`📄 ${page.charAt(0).toUpperCase() + page.slice(1)}`);
       }
     });
   });
-
-  // social links (already in nav)
-  // additional GitHub/Discord if needed
 }
 
 function buildNav() {
@@ -46,8 +54,8 @@ function buildNav() {
         ${PAGES.map(p => `<a class="nav-link ${isActive(p)}" data-page="${p}">${p.charAt(0).toUpperCase() + p.slice(1)}</a>`).join('')}
       </div>
       <div class="social-icons">
-        <a href="${SOCIAL.discord}" target="_blank" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
-        <a href="${SOCIAL.github}" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="${SOCIAL.discord}" target="_blank"><i class="fa-brands fa-discord"></i></a>
+        <a href="${SOCIAL.github}" target="_blank"><i class="fa-brands fa-github"></i></a>
       </div>
     </nav>
   `;
@@ -88,7 +96,7 @@ function buildDocs() {
   `).join('');
   return `
     <section>
-      <h2 style="font-weight:500; font-size:2rem; margin-bottom:1.2rem; background: linear-gradient(180deg,#fff,#aaa); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">${c.title}</h2>
+      <h2 class="page-title">${c.title}</h2>
       <div class="doc-card">
         <ul>${items}</ul>
         <p style="margin-top:1.4rem; color:#999;"><i class="fa-regular fa-circle-info"></i> ${c.note}</p>
@@ -111,7 +119,7 @@ function buildPurchase() {
   `).join('');
   return `
     <section>
-      <h2 style="font-weight:500; font-size:2rem; margin-bottom:0.5rem; background: linear-gradient(180deg,#fff,#aaa); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">${c.title}</h2>
+      <h2 class="page-title">${c.title}</h2>
       <div class="plan-grid">${plans}</div>
       <p style="color:#7a7a7a; margin-top:1.8rem; font-size:0.9rem;">All plans include lifetime access. Contact for enterprise.</p>
     </section>
@@ -128,7 +136,7 @@ function buildTos() {
   `).join('');
   return `
     <section>
-      <h2 style="font-weight:500; font-size:2rem; margin-bottom:1.2rem; background: linear-gradient(180deg,#fff,#aaa); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">${c.title}</h2>
+      <h2 class="page-title">${c.title}</h2>
       <div class="tos-card">
         ${sections}
         <p style="color:#888; margin-top:1rem;"><i class="fa-regular fa-clock"></i> Last updated: April 2026</p>
@@ -137,10 +145,8 @@ function buildTos() {
   `;
 }
 
-// ----- init -----
 document.addEventListener('DOMContentLoaded', () => {
   initEffects();
   render();
-  // initial toast
-  setTimeout(() => showToast('Lunyx · Lua Obfuscator'), 1600);
+  setTimeout(() => showToast('🚀 Lunyx · Lua Obfuscator'), 1600);
 });
