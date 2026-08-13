@@ -14,37 +14,22 @@ module.exports = async (req, res) => {
         return res.status(404).send('Loader not found');
     }
     
-    const loaderCode = generateEncryptedLoader(data.scriptId);
+    const loaderCode = generateLoader(data.scriptId);
     
     res.setHeader('Content-Type', 'text/plain');
     res.send(loaderCode);
 };
 
-function generateEncryptedLoader(scriptId) {
+function generateLoader(scriptId) {
     const f = Math.random().toString(16).substring(2, 12);
     const b = Math.random().toString(16).substring(2, 14);
     
-    // XOR encrypt the script ID
-    const key = crypto.randomBytes(16).toString('hex');
-    const encryptedId = xorEncrypt(scriptId, key);
-    
-    // Convert encrypted ID to byte array
-    const bytes = [];
-    for (let i = 0; i < encryptedId.length; i++) {
-        bytes.push(encryptedId.charCodeAt(i));
-    }
+    // Use base64 encoding instead of XOR (simpler and works)
+    const encodedId = Buffer.from(scriptId).toString('base64');
     
     return `-- Do not save this file
 -- Always use the loadstring
-local f,b,a="${f}","${b}",nil;local k="${key}";local d={${bytes.join(',')}};local s="";for i=1,#d do s=s..string.char(d[i]~string.byte(k,((i-1)%#k)+1))end;pcall(function()a=readfile(f.."/init-"..b..".lua")end) if a and #a>2000 then a=loadstring(a) else a=nil; end;
+local f,b,a="${f}","${b}",nil;local d="${encodedId}";local s="";for i=1,#d do local c=d:sub(i,i);if c~="=" then local n=string.find("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",c,1,true)-1;s=s..string.char(n*4+math.floor(string.find("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",d:sub(i+1,i+1),1,true)/16))end;end;pcall(function()a=readfile(f.."/init-"..b..".lua")end) if a and #a>2000 then a=loadstring(a) else a=nil; end;
 if a then return a() else pcall(makefolder,f) a=game:HttpGet("https://lunyx-api.vercel.app/api/load?id="..s) writefile(f.."/init-"..b..".lua", a);
 pcall(function() for i,v in pairs(listfiles('./'..f)) do local m=v:match('(init[%w%-]*).lua$') if m and m~=('init-'..b) then pcall(delfile, f..'/'..m..'.lua') end end; end); return loadstring(a)() end`;
-}
-
-function xorEncrypt(str, key) {
-    let result = '';
-    for (let i = 0; i < str.length; i++) {
-        result += String.fromCharCode(str.charCodeAt(i) ^ key.charCodeAt(i % key.length));
-    }
-    return result;
 }
