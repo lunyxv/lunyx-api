@@ -148,5 +148,5 @@ function buildTos() {
 document.addEventListener('DOMContentLoaded', () => {
   initEffects();
   render();
-  setTimeout(() => showToast('🚀 Lunyx · Lua Obfuscator'), 1600);
+  setTimeout(() => showToast('Lunyx · Lua Obfuscator'), 1600);
 });
