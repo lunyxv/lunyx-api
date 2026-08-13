@@ -1,11 +1,14 @@
 {
+  "routes": [
+    { "src": "/purchase", "dest": "/purchase.html" },
+    { "src": "/tos", "dest": "/tos.html" },
+    { "src": "/docs", "dest": "/docs.html" }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
       ]
     }
   ]
