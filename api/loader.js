@@ -1,4 +1,5 @@
 const { kv } = require('@vercel/kv');
+const crypto = require('crypto');
 
 module.exports = async (req, res) => {
     const { id } = req.query;
@@ -13,61 +14,37 @@ module.exports = async (req, res) => {
         return res.status(404).send('Loader not found');
     }
     
-    const loaderCode = generateLoaderCode(id, data.scriptId);
+    const loaderCode = generateEncryptedLoader(data.scriptId);
     
     res.setHeader('Content-Type', 'text/plain');
     res.send(loaderCode);
 };
 
-function generateLoaderCode(loaderId, scriptId) {
-    const folder = Math.random().toString(16).substring(2, 18);
-    const cacheFile = `init-${Math.random().toString(16).substring(2, 18)}.lua`;
+function generateEncryptedLoader(scriptId) {
+    const f = Math.random().toString(16).substring(2, 12);
+    const b = Math.random().toString(16).substring(2, 14);
+    
+    // XOR encrypt the script ID
+    const key = crypto.randomBytes(16).toString('hex');
+    const encryptedId = xorEncrypt(scriptId, key);
+    
+    // Convert encrypted ID to byte array
+    const bytes = [];
+    for (let i = 0; i < encryptedId.length; i++) {
+        bytes.push(encryptedId.charCodeAt(i));
+    }
     
     return `-- Do not save this file
 -- Always use the loadstring
-local function _load()
-    local folder = "${folder}"
-    local cacheFile = "${cacheFile}"
-    local scriptId = "${scriptId}"
-    
-    local cached
-    pcall(function()
-        cached = readfile(folder .. "/" .. cacheFile)
-    end)
-    
-    if cached and #cached > 50 then
-        return loadstring(cached)
-    end
-    
-    local success, result = pcall(function()
-        return game:HttpGet("https://lunyx-api.vercel.app/api/load?id=" .. scriptId)
-    end)
-    
-    if success and result then
-        pcall(function()
-            makefolder(folder)
-            writefile(folder .. "/" .. cacheFile, result)
-        end)
-        
-        pcall(function()
-            for _, file in pairs(listfiles("./" .. folder)) do
-                local name = file:match("(init[%w%-]*).lua$")
-                if name and name ~= cacheFile then
-                    pcall(delfile, folder .. "/" .. name .. ".lua")
-                end
-            end
-        end)
-        
-        return loadstring(result)
-    end
-    
-    return nil
-end
+local f,b,a="${f}","${b}",nil;local k="${key}";local d={${bytes.join(',')}};local s="";for i=1,#d do s=s..string.char(d[i]~string.byte(k,((i-1)%#k)+1))end;pcall(function()a=readfile(f.."/init-"..b..".lua")end) if a and #a>2000 then a=loadstring(a) else a=nil; end;
+if a then return a() else pcall(makefolder,f) a=game:HttpGet("https://lunyx-api.vercel.app/api/load?id="..s) writefile(f.."/init-"..b..".lua", a);
+pcall(function() for i,v in pairs(listfiles('./'..f)) do local m=v:match('(init[%w%-]*).lua$') if m and m~=('init-'..b) then pcall(delfile, f..'/'..m..'.lua') end end; end); return loadstring(a)() end`;
+}
 
-local loader = _load()
-if loader then
-    loader()
-else
-    warn("Failed to load script")
-end`;
+function xorEncrypt(str, key) {
+    let result = '';
+    for (let i = 0; i < str.length; i++) {
+        result += String.fromCharCode(str.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+    }
+    return result;
 }
