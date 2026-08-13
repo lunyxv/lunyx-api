@@ -19,8 +19,8 @@ module.exports = async (req, res) => {
                                 ###:              
                                 ###               
 
-  This script was protected using Lunyx
-  Obfuscator v0.0.5 [https://discord.gg/vKtwdAsDTP]
+This script was protected using Lunyx
+Obfuscator v0.0.5 [https://discord.gg/vKtwdAsDTP]
   
 `;
     
