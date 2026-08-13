@@ -4,203 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lunyx — Lua Obfuscator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-    <div class="bg-gradient"></div>
-    <div class="bg-grid"></div>
-    <div class="bg-glow"></div>
+    <canvas id="bg"></canvas>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <span class="logo-icon">◆</span>
-                <span class="logo-text">Lunyx</span>
-            </a>
-            <button class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <div class="nav-links" id="navLinks">
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#docs" class="nav-link">Docs</a>
-                <a href="#stats" class="nav-link">Stats</a>
-                <a href="https://discord.gg/vKtwdAsDTP" target="_blank" class="nav-cta">Join Discord</a>
-            </div>
+    <nav>
+        <a href="/" class="brand">Lunyx</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/docs">Docs</a>
+            <a href="/purchase">Purchase</a>
+            <a href="/tos">TOS</a>
+            <a href="https://discord.gg/vKtwdAsDTP" target="_blank">Discord</a>
+            <a href="https://github.com/lunyxv" target="_blank">GitHub</a>
         </div>
     </nav>
 
     <main>
         <section class="hero">
-            <div class="hero-content">
-                <div class="badge">🚀 Lua Protection</div>
-                <h1 class="title">Obfuscate with <span class="gradient-text">Confidence</span></h1>
-                <p class="subtitle">Enterprise-grade protection for your Lua scripts. Encrypt strings, mangle names, inject junk code, and deploy with zero compromise.</p>
-                <div class="actions">
-                    <button class="btn btn-primary" id="startBtn">Get Started Free</button>
-                    <a href="https://github.com/lunyxv" target="_blank" class="btn btn-secondary">View on GitHub</a>
-                </div>
-                <div class="trust-text">
-                    <span class="trust-icon">✓</span>
-                    <span>No signup required. Obfuscate instantly.</span>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="code-window">
-                    <div class="window-header">
-                        <div class="window-dots">
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                        </div>
-                        <span class="window-title">obfuscate.lua</span>
-                        <span class="window-lang">lua</span>
-                    </div>
-                    <div class="window-code">
-                        <pre id="codePreview"></pre>
-                    </div>
-                </div>
+            <p class="eyebrow">Lua Obfuscator</p>
+            <h1>Lunyx</h1>
+            <p class="subtitle">Enterprise-grade protection for your Lua scripts.</p>
+            <div class="actions">
+                <a href="/purchase" class="btn-primary">Purchase</a>
+                <a href="/docs" class="btn-secondary">Documentation</a>
             </div>
         </section>
 
-        <section id="features" class="features">
-            <div class="section-container">
-                <div class="section-header">
-                    <h2>Powerful Protection</h2>
-                    <p>Everything you need to secure your Lua scripts</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <div class="feature-icon">🔐</div>
-                        <h3>String Encryption</h3>
-                        <p>Every string is encrypted and decrypted only at runtime, making your code impossible to read.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🔀</div>
-                        <h3>Name Mangling</h3>
-                        <p>Variables and functions get random, meaningless names. Your logic becomes a maze.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🎭</div>
-                        <h3>Junk Code Injection</h3>
-                        <p>Fake code paths inserted throughout to confuse reverse engineers and slow analysis.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">☁️</div>
-                        <h3>Remote Loading</h3>
-                        <p>Host scripts on our servers and load them on-demand with intelligent local caching.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">⚡</div>
-                        <h3>Lightning Fast</h3>
-                        <p>Obfuscate any size script in milliseconds. No waiting, no compromises.</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">🔗</div>
-                        <h3>Full API</h3>
-                        <p>REST API for complete control over scripts, loaders, and analytics.</p>
-                    </div>
-                </div>
+        <section class="features-preview">
+            <div class="feature">
+                <h3>String Encryption</h3>
+                <p>Runtime decryption</p>
             </div>
-        </section>
-
-        <section id="docs" class="docs">
-            <div class="section-container">
-                <div class="section-header">
-                    <h2>Get Started in Minutes</h2>
-                    <p>Simple commands to obfuscate, deploy, and manage your scripts</p>
-                </div>
-                <div class="docs-grid">
-                    <div class="doc-item">
-                        <div class="doc-number">01</div>
-                        <h3>Upload & Obfuscate</h3>
-                        <pre><code>/obfuscate file:script.lua</code></pre>
-                        <p>Send your Lua file and receive the protected version instantly.</p>
-                    </div>
-                    <div class="doc-item">
-                        <div class="doc-number">02</div>
-                        <h3>Create a Loader</h3>
-                        <pre><code>/createloader script:obfuscated.lua</code></pre>
-                        <p>Host your script remotely and get a tiny loader to execute it.</p>
-                    </div>
-                    <div class="doc-item">
-                        <div class="doc-number">03</div>
-                        <h3>View Analytics</h3>
-                        <pre><code>/listloaders</code></pre>
-                        <p>Track every load, see execution stats, and monitor usage.</p>
-                    </div>
-                    <div class="doc-item">
-                        <div class="doc-number">04</div>
-                        <h3>Revoke Access</h3>
-                        <pre><code>/deleteloader id:loader_xyz</code></pre>
-                        <p>Instantly disable any loader with a single command.</p>
-                    </div>
-                </div>
+            <div class="feature">
+                <h3>Name Mangling</h3>
+                <p>Random identifiers</p>
             </div>
-        </section>
-
-        <section id="stats" class="stats">
-            <div class="section-container">
-                <div class="section-header">
-                    <h2>Trusted by Developers</h2>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-value" id="statScripts">0</div>
-                        <div class="stat-label">Scripts Protected</div>
-                        <div class="stat-bar"><div class="stat-fill"></div></div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="statLoaders">0</div>
-                        <div class="stat-label">Active Loaders</div>
-                        <div class="stat-bar"><div class="stat-fill"></div></div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="statLoads">0</div>
-                        <div class="stat-label">Total Executions</div>
-                        <div class="stat-bar"><div class="stat-fill"></div></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="cta-section">
-            <div class="section-container">
-                <h2>Ready to protect your code?</h2>
-                <p>Start obfuscating now. No credit card required.</p>
-                <button class="btn btn-primary btn-large" id="ctaBtn">Start Obfuscating Free</button>
+            <div class="feature">
+                <h3>Loader System</h3>
+                <p>Remote script loading</p>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="section-container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <div class="footer-brand">
-                        <span class="logo-icon">◆</span>
-                        <span>Lunyx</span>
-                    </div>
-                    <p>Enterprise Lua protection for modern developers.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Links</h4>
-                    <a href="#features">Features</a>
-                    <a href="#docs">Documentation</a>
-                    <a href="/api/docs">API Docs</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Community</h4>
-                    <a href="https://discord.gg/vKtwdAsDTP" target="_blank">Discord</a>
-                    <a href="https://github.com/lunyxv" target="_blank">GitHub</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Lunyx. All rights reserved.</p>
-                <span class="version">v0.0.0</span>
-            </div>
+    <footer>
+        <p>&copy; 2026 Lunyx. All rights reserved.</p>
+        <div>
+            <a href="/tos">TOS</a>
+            <a href="/docs">Docs</a>
         </div>
     </footer>
 
