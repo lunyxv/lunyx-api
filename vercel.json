@@ -1,15 +1,16 @@
 {
-  "routes": [
-    { "src": "/purchase", "dest": "/purchase.html" },
-    { "src": "/tos", "dest": "/tos.html" },
-    { "src": "/docs", "dest": "/docs.html" }
-  ],
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
-      ]
-    }
-  ]
+  "name": "lunyx-api",
+  "version": "1.0.0",
+  "description": "Lunyx Lua Obfuscator website – dynamic JS rendering",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lunyxv/lunyx-api"
+  },
+  "keywords": ["lua", "obfuscator", "lunyx"],
+  "author": "lunyxv",
+  "license": "MIT"
 }
