@@ -3,84 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lunyx</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Lunyx — Lua Obfuscator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
     <canvas id="bg"></canvas>
+    <div class="grain"></div>
 
     <nav>
-        <div class="nav-inner">
-            <a href="#" class="logo">Lunyx</a>
-            <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#docs">Docs</a>
-                <a href="#stats">Stats</a>
-                <a href="https://discord.gg/vKtwdAsDTP">Discord</a>
-            </div>
+        <div class="nav-left">
+            <span class="logo">Lunyx</span>
+        </div>
+        <div class="nav-center">
+            <a href="#features">Features</a>
+            <a href="#docs">Docs</a>
+            <a href="#stats">Stats</a>
+        </div>
+        <div class="nav-right">
+            <a href="https://discord.gg/vKtwdAsDTP" target="_blank" class="discord-btn">Discord</a>
         </div>
     </nav>
 
     <main>
         <section class="hero">
-            <h1>Lunyx</h1>
-            <p>Lua Obfuscator</p>
-            <div class="cta">
-                <a href="#docs" class="btn">Get Started</a>
-                <a href="https://discord.gg/vKtwdAsDTP" class="btn ghost">Discord</a>
+            <div class="hero-content">
+                <p class="eyebrow">Lua Obfuscator</p>
+                <h1 class="title">Lunyx</h1>
+                <p class="subtitle">Enterprise-grade protection for your Lua scripts. Obfuscate, encrypt, and deploy with confidence.</p>
+                <div class="actions">
+                    <a href="#docs" class="btn-primary">Get Started</a>
+                    <a href="https://github.com/lunyxv" target="_blank" class="btn-secondary">GitHub</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre><code><span class="dim">$</span> obfuscate script.lua
+<span class="dim">→</span> String encryption: <span class="green">done</span>
+<span class="dim">→</span> Name mangling: <span class="green">done</span>
+<span class="dim">→</span> Junk code: <span class="green">done</span>
+<span class="dim">→</span> Output: <span class="green">script_obfuscated.lua</span></code></pre>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="features">
-            <h2>Features</h2>
-            <div class="grid">
-                <div class="card"><h3>String Encryption</h3><p>Runtime decryption</p></div>
-                <div class="card"><h3>Name Mangling</h3><p>Random identifiers</p></div>
-                <div class="card"><h3>Junk Code</h3><p>Confuse analysis</p></div>
-                <div class="card"><h3>Loader</h3><p>Remote loading</p></div>
-                <div class="card"><h3>API</h3><p>Full access</p></div>
-                <div class="card"><h3>Fast</h3><p>Milliseconds</p></div>
+        <section id="features" class="section">
+            <h2 class="section-title">Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>String Encryption</h3>
+                    <p>Every string in your script is encrypted and only decrypted when needed at runtime.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Name Mangling</h3>
+                    <p>Variables and functions are renamed to random, meaningless identifiers.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Junk Code Injection</h3>
+                    <p>Fake code is inserted throughout your script to throw off reverse engineers.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Loader System</h3>
+                    <p>Store scripts on remote servers and load them on-demand with local caching.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>REST API</h3>
+                    <p>Full API access for script management, stats, and control.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Lightning Fast</h3>
+                    <p>Obfuscation completes in milliseconds, even on large scripts.</p>
+                </div>
             </div>
         </section>
 
-        <section id="docs">
-            <h2>Documentation</h2>
-            <div class="grid">
-                <div class="card code-card">
-                    <h3>Obfuscate</h3>
+        <section id="docs" class="section">
+            <h2 class="section-title">Documentation</h2>
+            <div class="docs-grid">
+                <div class="doc-card">
+                    <h3>Obfuscate a Script</h3>
                     <pre><code>/obfuscate file:script.lua</code></pre>
+                    <p>Upload a Lua file and receive the obfuscated version instantly.</p>
                 </div>
-                <div class="card code-card">
-                    <h3>Create Loader</h3>
+                <div class="doc-card">
+                    <h3>Create a Loader</h3>
                     <pre><code>/createloader script:script.lua</code></pre>
+                    <p>Store your script on the server and generate a remote loader.</p>
                 </div>
-                <div class="card code-card">
-                    <h3>Delete Loader</h3>
+                <div class="doc-card">
+                    <h3>Delete a Loader</h3>
                     <pre><code>/deleteloader id:loader_id</code></pre>
+                    <p>Revoke access to any loader instantly.</p>
                 </div>
-                <div class="card code-card">
-                    <h3>List</h3>
+                <div class="doc-card">
+                    <h3>View All Scripts</h3>
                     <pre><code>/listloaders</code></pre>
+                    <p>See every stored script and its load count.</p>
                 </div>
             </div>
         </section>
 
-        <section id="stats">
-            <h2>Stats</h2>
-            <div class="grid stats-grid">
-                <div class="card"><div class="stat" id="s1">0</div><p>Scripts</p></div>
-                <div class="card"><div class="stat" id="s2">0</div><p>Loaders</p></div>
-                <div class="card"><div class="stat" id="s3">0</div><p>Loads</p></div>
+        <section id="stats" class="section">
+            <h2 class="section-title">Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value" id="statScripts">0</span>
+                    <span class="stat-label">Scripts Stored</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="statLoaders">0</span>
+                    <span class="stat-label">Loaders Created</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="statLoads">0</span>
+                    <span class="stat-label">Total Loads</span>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>Lunyx v0.0.0</p>
-        <div>
-            <a href="https://discord.gg/vKtwdAsDTP">Discord</a>
-            <a href="https://github.com/lunyxv">GitHub</a>
+        <div class="footer-left">
+            <span>Lunyx Obfuscator</span>
+            <span class="version">v0.0.0</span>
+        </div>
+        <div class="footer-right">
+            <a href="https://discord.gg/vKtwdAsDTP" target="_blank">Discord</a>
+            <a href="https://github.com/lunyxv" target="_blank">GitHub</a>
+            <a href="/api/docs">API Docs</a>
         </div>
     </footer>
 
