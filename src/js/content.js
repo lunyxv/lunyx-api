@@ -1,21 +1,21 @@
-// src/js/content.js – all text content, sections, docs, purchase, TOS
+// src/js/content.js
 export const CONTENT = {
   home: {
     title: 'Lunyx',
     subtitle: 'Lua Obfuscator',
     features: [
-      { icon: 'fa-solid fa-code', title: 'Advanced AST obfuscation', desc: 'Control flow, string encryption, and more.' },
-      { icon: 'fa-solid fa-shield-halved', title: 'Anti-debug & integrity', desc: 'Protect your scripts from tampering.' },
-      { icon: 'fa-solid fa-gauge-high', title: 'Blazing fast', desc: 'Minimal overhead, maximum protection.' },
-      { icon: 'fa-solid fa-terminal', title: 'CLI & API ready', desc: 'Integrate into your workflow seamlessly.' },
+      { icon: 'fa-solid fa-code', title: 'Advanced AST Obfuscation', desc: 'Control flow, string encryption, and more.' },
+      { icon: 'fa-solid fa-shield-halved', title: 'Anti-Debug & Integrity', desc: 'Protect your scripts from tampering.' },
+      { icon: 'fa-solid fa-gauge-high', title: 'Blazing Fast', desc: 'Minimal overhead, maximum protection.' },
+      { icon: 'fa-solid fa-terminal', title: 'CLI & API Ready', desc: 'Integrate into your workflow seamlessly.' },
     ]
   },
   docs: {
     title: 'Documentation',
     commands: [
       { cmd: 'lunyx obfuscate <file>', desc: 'Obfuscate a Lua file with default settings.' },
-      { cmd: 'lunyx --string-encrypt', desc: 'Enable string encryption (--string-encrypt true/false).' },
-      { cmd: 'lunyx --control-flow', desc: 'Control flow flattening (--control-flow true/false).' },
+      { cmd: 'lunyx --string-encrypt', desc: 'Enable string encryption.' },
+      { cmd: 'lunyx --control-flow', desc: 'Control flow flattening.' },
       { cmd: 'lunyx --output <path>', desc: 'Specify output file path.' },
       { cmd: 'lunyx --verbose', desc: 'Print detailed logs during obfuscation.' },
     ],
@@ -32,16 +32,15 @@ export const CONTENT = {
   tos: {
     title: 'Terms of Service',
     sections: [
-      { heading: 'Acceptance of Terms', text: 'By using Lunyx, you agree to comply with these terms. If you do not agree, do not use the service.' },
-      { heading: 'License & Usage', text: 'You are granted a non-exclusive, non-transferable license to use the obfuscator for legitimate purposes. Resale or redistribution of the software is prohibited.' },
-      { heading: 'Obfuscated Code', text: 'You retain ownership of your original code. Lunyx is not responsible for any misuse or damage caused by obfuscated scripts.' },
-      { heading: 'Disclaimer', text: 'The service is provided "as is". We disclaim all warranties, express or implied, including fitness for a particular purpose.' },
+      { heading: 'Acceptance of Terms', text: 'By using Lunyx, you agree to comply with these terms.' },
+      { heading: 'License & Usage', text: 'You are granted a non-exclusive, non-transferable license to use the obfuscator for legitimate purposes.' },
+      { heading: 'Obfuscated Code', text: 'You retain ownership of your original code. Lunyx is not responsible for any misuse.' },
+      { heading: 'Disclaimer', text: 'The service is provided "as is". We disclaim all warranties.' },
       { heading: 'Contact', text: 'For any questions, reach out via Discord or GitHub.' },
     ]
   }
 };
 
-// helper: social links
 export const SOCIAL = {
   discord: 'https://discord.gg/vKtwdAsDTP',
   github: 'https://github.com/lunyxv'
