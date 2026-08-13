@@ -1,9 +1,10 @@
-// src/js/effects.js – particles, spotlight, splash, toasts
+// src/js/effects.js
+import { showToast } from './app.js';
+
 export function initEffects() {
   initParticles();
   initSpotlight();
   initSplash();
-  initToastSystem();
 }
 
 function initParticles() {
@@ -59,18 +60,15 @@ function initSpotlight() {
   const div = document.createElement('div');
   div.className = 'spotlight';
   document.body.prepend(div);
-  const onMove = (e) => {
+  window.addEventListener('mousemove', (e) => {
     const x = e.clientX / window.innerWidth * 100;
     const y = e.clientY / window.innerHeight * 100;
     div.style.setProperty('--x', x + '%');
     div.style.setProperty('--y', y + '%');
-  };
-  window.addEventListener('mousemove', onMove);
+  });
 }
 
 function initSplash() {
-  const existing = document.getElementById('splash');
-  if (existing) return;
   const splash = document.createElement('div');
   splash.id = 'splash';
   splash.innerHTML = `<i class="fa-solid fa-shield-halved"></i><h1>Lunyx</h1>`;
@@ -79,28 +77,4 @@ function initSplash() {
     splash.classList.add('hidden');
     setTimeout(() => splash.remove(), 800);
   }, 1400);
-}
-
-// Toast system
-let toastContainer = null;
-function getToastContainer() {
-  if (!toastContainer) {
-    toastContainer = document.createElement('div');
-    toastContainer.className = 'toast-container';
-    document.body.appendChild(toastContainer);
-  }
-  return toastContainer;
-}
-
-export function showToast(message, duration = 2800) {
-  const container = getToastContainer();
-  const t = document.createElement('div');
-  t.className = 'toast';
-  t.textContent = message;
-  container.appendChild(t);
-  setTimeout(() => {
-    t.style.opacity = '0';
-    t.style.transform = 'translateX(20px)';
-    setTimeout(() => t.remove(), 300);
-  }, duration);
 }
