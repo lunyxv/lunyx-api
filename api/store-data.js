@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+const { kv } = require('@vercel/kv');
 
 module.exports = async (req, res) => {
     if (req.method !== 'POST') {
@@ -12,19 +11,17 @@ module.exports = async (req, res) => {
         return res.status(400).json({ error: 'Missing required fields' });
     }
     
-    const dataDir = path.join(process.cwd(), 'data');
-    if (!fs.existsSync(dataDir)) {
-        fs.mkdirSync(dataDir, { recursive: true });
+    try {
+        await kv.set(`obfuscation:${id}`, {
+            id,
+            keys,
+            metadata,
+            timestamp: Date.now()
+        });
+        
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('Error storing data:', error);
+        res.status(500).json({ error: 'Failed to store data' });
     }
-    
-    const filePath = path.join(dataDir, `${id}.json`);
-    
-    fs.writeFileSync(filePath, JSON.stringify({
-        id,
-        keys,
-        metadata,
-        timestamp: Date.now()
-    }, null, 2));
-    
-    res.status(200).json({ success: true });
 };
