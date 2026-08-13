@@ -13,7 +13,8 @@ module.exports = async (req, res) => {
  \$$$$$$$$ \$$$$$$  \$$   \$$ _\$$$$$$$ \$$   \$$
                              |  \__| $$          
                               \$$    $$          
-                               \$$$$$$           
+                               \$$$$$$
+                               
 `;
     
     res.setHeader('Content-Type', 'text/plain');
