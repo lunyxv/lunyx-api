@@ -3,143 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lunyx - Lua Obfuscator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Lunyx</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-    <canvas id="galaxy"></canvas>
-    <div class="moon"></div>
+    <canvas id="bg"></canvas>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">LUNYX</div>
+    <nav>
+        <div class="nav-inner">
+            <a href="#" class="logo">Lunyx</a>
             <div class="nav-links">
-                <a href="#home">Home</a>
                 <a href="#features">Features</a>
                 <a href="#docs">Docs</a>
                 <a href="#stats">Stats</a>
-                <a href="https://discord.gg/vKtwdAsDTP" target="_blank">Discord</a>
-                <a href="https://github.com/lunyxv" target="_blank">GitHub</a>
+                <a href="https://discord.gg/vKtwdAsDTP">Discord</a>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="gradient-text">Lunyx</h1>
-            <p class="hero-subtitle">Advanced Lua Obfuscator</p>
-            <div class="hero-buttons">
-                <a href="#docs" class="btn-primary">Documentation</a>
-                <a href="https://discord.gg/vKtwdAsDTP" class="btn-secondary">Discord</a>
+    <main>
+        <section class="hero">
+            <h1>Lunyx</h1>
+            <p>Lua Obfuscator</p>
+            <div class="cta">
+                <a href="#docs" class="btn">Get Started</a>
+                <a href="https://discord.gg/vKtwdAsDTP" class="btn ghost">Discord</a>
             </div>
-            <div class="code-block">
-                <code>loadstring(game:HttpGet("https://lunyx-api.vercel.app/api/loader?id=ID"))()</code>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="scroll-line"></div>
-        </div>
-    </section>
+        </section>
 
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="section-title">Features</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>String Encryption</h3>
-                    <p>Strings encrypted and decrypted at runtime</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Name Mangling</h3>
-                    <p>Variables renamed to random identifiers</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Junk Code</h3>
-                    <p>Fake code inserted to confuse analysis</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Loader System</h3>
-                    <p>Remote script loading with local caching</p>
-                </div>
-                <div class="feature-card">
-                    <h3>REST API</h3>
-                    <p>Full API for script management</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Fast Processing</h3>
-                    <p>Obfuscation in milliseconds</p>
-                </div>
+        <section id="features">
+            <h2>Features</h2>
+            <div class="grid">
+                <div class="card"><h3>String Encryption</h3><p>Runtime decryption</p></div>
+                <div class="card"><h3>Name Mangling</h3><p>Random identifiers</p></div>
+                <div class="card"><h3>Junk Code</h3><p>Confuse analysis</p></div>
+                <div class="card"><h3>Loader</h3><p>Remote loading</p></div>
+                <div class="card"><h3>API</h3><p>Full access</p></div>
+                <div class="card"><h3>Fast</h3><p>Milliseconds</p></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="docs" class="docs">
-        <div class="container">
-            <h2 class="section-title">Documentation</h2>
-            <div class="docs-grid">
-                <div class="doc-card">
-                    <h3>Obfuscate Script</h3>
+        <section id="docs">
+            <h2>Documentation</h2>
+            <div class="grid">
+                <div class="card code-card">
+                    <h3>Obfuscate</h3>
                     <pre><code>/obfuscate file:script.lua</code></pre>
-                    <p>Upload a Lua file and receive an obfuscated version.</p>
                 </div>
-                <div class="doc-card">
+                <div class="card code-card">
                     <h3>Create Loader</h3>
                     <pre><code>/createloader script:script.lua</code></pre>
-                    <p>Store script on server and generate a loader.</p>
                 </div>
-                <div class="doc-card">
+                <div class="card code-card">
                     <h3>Delete Loader</h3>
                     <pre><code>/deleteloader id:loader_id</code></pre>
-                    <p>Remove a loader and prevent further access.</p>
                 </div>
-                <div class="doc-card">
-                    <h3>List Scripts</h3>
+                <div class="card code-card">
+                    <h3>List</h3>
                     <pre><code>/listloaders</code></pre>
-                    <p>View all stored scripts and load counts.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="stats" class="stats">
-        <div class="container">
-            <h2 class="section-title">Statistics</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalScripts">0</div>
-                    <div class="stat-label">Scripts</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="totalLoaders">0</div>
-                    <div class="stat-label">Loaders</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="totalLoads">0</div>
-                    <div class="stat-label">Total Loads</div>
-                </div>
+        <section id="stats">
+            <h2>Stats</h2>
+            <div class="grid stats-grid">
+                <div class="card"><div class="stat" id="s1">0</div><p>Scripts</p></div>
+                <div class="card"><div class="stat" id="s2">0</div><p>Loaders</p></div>
+                <div class="card"><div class="stat" id="s3">0</div><p>Loads</p></div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <h3>LUNYX</h3>
-                    <p>Advanced Lua Obfuscation</p>
-                </div>
-                <div class="footer-links">
-                    <a href="https://discord.gg/vKtwdAsDTP">Discord</a>
-                    <a href="https://github.com/lunyxv">GitHub</a>
-                    <a href="/api/stats">API</a>
-                    <a href="/api/docs">Docs</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Lunyx. All rights reserved.</p>
-                <p>v0.0.0</p>
-            </div>
+    <footer>
+        <p>Lunyx v0.0.0</p>
+        <div>
+            <a href="https://discord.gg/vKtwdAsDTP">Discord</a>
+            <a href="https://github.com/lunyxv">GitHub</a>
         </div>
     </footer>
 
